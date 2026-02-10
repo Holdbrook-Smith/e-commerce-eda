@@ -57,7 +57,7 @@ with tab1:
         st.header("Regional Purchasing Power")
         region_df = df2.groupby('region', as_index=False)['quantity'].sum()
         fig.update_layout(width=1400,height=600,autosize=False)
-        fig = px.pie(region_df, values = "quantity", names = "region", hole = 0.5)
+        fig = px.pie(region_df, values = "quantity", names ="region", hole = 0.5)
         fig.update_traces(textposition = "outside")
         
 
