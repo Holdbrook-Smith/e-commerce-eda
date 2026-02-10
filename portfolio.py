@@ -94,7 +94,7 @@ with tab1:
     #with col2
     #    pfm1 = df2.groupby("category")["profit_margin"].value_counts().reset_index(name="count")
     #    st.bar_chart(pfm1,x="category",y="profit_margin")
-    #st.subheader("Profit Made Over Time")
+    st.subheader("Profit Made Over Time")
     df2["month"] = df2["order_date"].dt.to_period("M")
     plots = pd.DataFrame(df2.groupby(df2["month"].dt.strftime("%Y:%b"))["profit_margin"].sum()).reset_index()
     figure = px.line(plots,x = "month",y = "profit_margin", labels = {"profit_margin:amount"},height = 500, width = 1000, template = "gridon")
