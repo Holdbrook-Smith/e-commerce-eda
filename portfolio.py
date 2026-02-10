@@ -63,7 +63,6 @@ with tab1:
                      color = "payment_method")
     fig3.update_layout(width = 800, height = 650)
     st.plotly_chart(fig3,use_container_width= True)
-    #quantity vrs profit_margin
     #col1,col2 = st.columns(2)
     #with col1:
     #    pfm = df2.groupby("quantity")["profit_margin"].value_counts().reset_index(name="count")
