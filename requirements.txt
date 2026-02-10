@@ -1,6 +1,7 @@
 pandas
-streamlit
+streamlit>=1.23.0
 seaborn
 matplotlib
 plotly
 numpy
+altair<5
