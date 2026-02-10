@@ -58,7 +58,7 @@ with tab1:
         region_df = df2.groupby('region', as_index=False)['quantity'].sum()
         fig = px.pie(region_df, values = "quantity", names = "region", hole = 0.5)
         fig.update_traces(textposition = "outside")
-        st.plotly_chart(fig,use_container_width=True,height = 200)
+        st.plotly_chart(fig,use_container_width=False,height = 200)
     #tree based on category,region and payment_method
     st.subheader("Heirachiel Map")
     fig3 = px.treemap(df2,path = ["region","category","payment_method"],values = "quantity", hover_data=["quantity"],
