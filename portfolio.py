@@ -45,28 +45,46 @@ with tab1:
     else:
         df2 = df[df["region"].isin(region)]
     category_df = df2.groupby('category', as_index=False)['quantity'].sum()
-    with col1:
-        st.subheader("Quantity purchased")
-        fig = px.bar(category_df,x = "category", y = "quantity",text=['${:,.2f}'.format(x) for x in category_df["quantity"]],template = "seaborn")
-        fig.update_layout(width=1400,height=600,autosize=False)           
-        st.plotly_chart(fig,use_container_width=False)
+    
+    st.subheader("Quantity purchased")
+    fig = px.bar(category_df,x = "category", y = "quantity",text=['${:,.2f}'.format(x) for x in category_df["quantity"]],template = "seaborn")
+    fig.update_layout(width=1400,height=600,autosize=False)           
+    st.plotly_chart(fig,use_container_width=False)
 
 
         
-    with col2:
-        st.header("Regional Purchasing Power")
-        region_df = df2.groupby('region', as_index=False)['quantity'].sum()
-        fig.update_layout(width=1400,height=600,autosize=False)
-        fig = px.pie(region_df, values = "quantity", names ="region", hole = 0.5)
-        fig.update_traces(textposition = "outside")
+    
+    st.header("Regional Purchasing Power")
         
+    
+    # Aggregate quantities by region
+    region_df = df2.groupby('region', as_index=False)['quantity'].sum()
+    
+    # Create pie chart
+    fig = px.pie(
+        region_df,
+        values="quantity",
+        names="region",
+        hole=0.5,               # Donut chart
+        title="Regional Purchasing Power"
+    )
+    
+    # Update layout and styling
+    fig.update_traces(textposition="outside", textinfo="percent+label")
+    fig.update_layout(
+        autosize=True,
+        margin=dict(l=20, r=20, t=40, b=20)
+    )
+    
+    # Display in Streamlit
+    st.plotly_chart(fig, use_container_width=True)
 
-        st.plotly_chart(fig,use_container_width=False,height = 200)
+    #st.plotly_chart(fig,use_container_width=False,height = 600,width = 1400)
     #tree based on category,region and payment_method
     st.subheader("Heirachiel Map")
     fig3 = px.treemap(df2,path = ["region","category","payment_method"],values = "quantity", hover_data=["quantity"],
                      color = "payment_method")
-    fig3.update_layout(width=1400,height=600,autosize=False)
+    fig3.update_layout(width=1000,height=600,autosize=False)
     st.plotly_chart(fig3,use_container_width = False)
     #quantity vrs profit_margin
     #col1,col2 = st.columns(2)
@@ -76,7 +94,7 @@ with tab1:
     #with col2
     #    pfm1 = df2.groupby("category")["profit_margin"].value_counts().reset_index(name="count")
     #    st.bar_chart(pfm1,x="category",y="profit_margin")
-    st.subheader("Profit Made Over Time")
+    #st.subheader("Profit Made Over Time")
     df2["month"] = df2["order_date"].dt.to_period("M")
     plots = pd.DataFrame(df2.groupby(df2["month"].dt.strftime("%Y:%b"))["profit_margin"].sum()).reset_index()
     figure = px.line(plots,x = "month",y = "profit_margin", labels = {"profit_margin:amount"},height = 500, width = 1000, template = "gridon")
