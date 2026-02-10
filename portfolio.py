@@ -18,7 +18,7 @@ with tab1:
         st.write(filename)
         df=pd.read_csv(filename)
     else:
-        df=pd.read_csv("/home/mamba/the_project/ecommerce_sales_port.csv")
+        df=pd.read_csv("ecommerce_sales_port.csv")
 
     col1,col2 = st.columns((2))
 #converting to datetime
