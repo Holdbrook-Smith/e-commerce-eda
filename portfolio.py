@@ -54,12 +54,12 @@ with tab1:
 
         
     with col2:
-         with col2:
         st.header("Regional Purchasing Power")
         region_df = df2.groupby('region', as_index=False)['quantity'].sum()
         fig.update_layout(width=1400,height=600,autosize=False)
         fig = px.pie(region_df, values = "quantity", names = "region", hole = 0.5)
         fig.update_traces(textposition = "outside")
+        
 
         st.plotly_chart(fig,use_container_width=False,height = 200)
     #tree based on category,region and payment_method
