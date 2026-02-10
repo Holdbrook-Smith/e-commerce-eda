@@ -47,9 +47,8 @@ with tab1:
         df2 = df[df["region"].isin(region)]
     category_df = df2.groupby('category', as_index=False)['quantity'].sum()
     with col1:
-        st.subheader("Quantity purchased")
-        fig = px.bar(category_df,x = "category", y = "quantity", text = ['${:,.2f}'.format(x) for x in category_df["quantity"]],
-                    template = "seaborn")
+	st.subheader("Quantity purchased")
+        fig = px.bar(category_df,x = "category", y = "quantity", text = ['${:,.2f}'.format(x) for x in category_df["quantity"]],template = "seaborn")
 	figure2.update_layout(width=1400,height=600,autosize=False)
         st.plotly_chart(figure2,use_container_width= False, height = 200)
     with col2:
