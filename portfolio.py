@@ -46,7 +46,7 @@ with tab1:
         df2 = df[df["region"].isin(region)]
     category_df = df2.groupby('category', as_index=False)['quantity'].sum()
     
-    st.subheader("Quantity purchased")
+    st.subheader("Product Performance")
     fig = px.bar(category_df,x = "category", y = "quantity",text=['${:,.2f}'.format(x) for x in category_df["quantity"]],template = "seaborn")
     fig.update_layout(width=1400,height=600,autosize=False)           
     st.plotly_chart(fig,use_container_width=False)
@@ -94,18 +94,54 @@ with tab1:
     #with col2
     #    pfm1 = df2.groupby("category")["profit_margin"].value_counts().reset_index(name="count")
     #    st.bar_chart(pfm1,x="category",y="profit_margin")
-    st.subheader("Profit Made Over Time")
+    st.subheader("Profit Margin")
     df2["month"] = df2["order_date"].dt.to_period("M")
     plots = pd.DataFrame(df2.groupby(df2["month"].dt.strftime("%Y:%b"))["profit_margin"].sum()).reset_index()
     figure = px.line(plots,x = "month",y = "profit_margin", labels = {"profit_margin:amount"},height = 500, width = 1000, template = "gridon")
     figure.update_layout(width=1400,height=600,autosize=False)
     st.plotly_chart(figure,use_container_width=False)
         
+with tab2:
+    st.header("OVERVIEW AND EXPLANATION OF THE EDA")
+    st.write("This project focuses on performing an Exploratory Data Analysis" \
+    "on an e-commerce dataset to uncover meaningful insights into customer and product behaviour," \
+    "sales trends, and product performance.")
 
+    st.write("The goal of this analysis is to understand key patterns such as" \
+    "purchasing habits, revenue distribution, factors influencing sales, time analysis per product performance" \
+    "and more. By analysing these trends, the project aims to support data-driven decision making" \
+    "that can improve customer experince, optimised product offerings, and increase in business performance.")
 
+    st.write("Various data visualisation techniques and statistical summaries " \
+    "were used to explore the dataset,identify patterns, detect anomalies and highlight key " \
+    "business insights")
 
+    st.subheader("PRODUCT PERFORMANCE :bar_chart:")
+    st.write("The very first bar plot distribution shows the perfomance of various " \
+    "products by displaying from the top-selling products by their categories and the revenue each category generates, " \
+    "The leading most purchased product category being Electronics, followed by Fashion " \
+    "and with the least purchased product category being Grocery")
+    
+    st.subheader("REGIONAL PURCHASING POWER")
+    st.write("The regional purchasing power is a pie chart that shows the " \
+    "proportions of purchasing among the various regions, the chart explains" \
+    " the purchasing density as related to the other regions ")
 
+    st.subheader("HEIRACHIAL TREE MAP")
+    st.write("This treemap visualizes the hierarchical structure of product categories, " \
+    "allowing us to quickly identify which categories and subcategories contribute the most to overall sales. Larger blocks indicate higher revenue contribution, " \
+    "making it easy to spot top-performing segments.")
 
+    st.subheader("PROFIT MARGIN :chart_with_upwards_trend:")
+    st.write("The profit margin shows the amount of profit made over time" \
+    "begining from 2023 December to 2025 September, highlighting how efficiently revenue is converted into profit. Higher margins indicate more profitable areas of the business, " \
+    "while lower margins may signal higher costs or pricing inefficiencies. ")
+
+    st.subheader("NOTE :mag:")
+    st.write("In this interactive dashboard an option has been " \
+    "provided where users can upload their own specific data for the dashboard to make analysis " \
+    "there is also a calender to help users make analysis within a specific time range " \
+    "and also there is the sidebar that can help users make analysis solely on a specific region or compare certain specific regions at ease")
 
 
 
